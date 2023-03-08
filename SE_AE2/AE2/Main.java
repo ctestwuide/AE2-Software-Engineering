@@ -9,8 +9,8 @@ public class Main {
 	public static void main(String[] args) {
 		int userType=0;
 		
-		if(DataImportExport.filePathTR==null) {
-			DataImportExport.askForFilePaths();
+		if(FileHandler.filePathTR==null) {
+			FileHandler.askForFilePaths();
 		}
 		
 		while(userType==0) {
@@ -37,7 +37,7 @@ public class Main {
 				Administrator.askRequest();
 				break;
 			case 0:
-				DataImportExport.saveAndExport();
+				FileHandler.saveAndExport();
 				return;
 			}
 		}

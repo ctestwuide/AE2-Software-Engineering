@@ -62,7 +62,7 @@ public class Administrator {
 		} while(requestType!=0);
 		
 		try {
-			DataImportExport.saveAndExport();
+			FileHandler.saveAndExport();
 			System.out.println("\nChanges saved!");
 		}finally {
 			System.out.println();

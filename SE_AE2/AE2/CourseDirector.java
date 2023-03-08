@@ -41,7 +41,7 @@ public class CourseDirector {
 		}while(requestType!=0);
 		
 		try {
-			FileHandler.writeTeachingRequirementFile(DataImportExport.filePathTR);
+			FileHandler.writeTeachingRequirementFile(FileHandler.filePathTR);
 			System.out.println("\nChanges saved!");
 		}finally {
 			System.out.println();
