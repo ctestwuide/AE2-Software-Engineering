@@ -51,5 +51,6 @@ public class Education {
 		return "" + this.bachelorDegree+ "," + this.masterDegree + "," + 
 	this.doctorate + "," + this.researchExperience;
 	}
+	
 
 }
