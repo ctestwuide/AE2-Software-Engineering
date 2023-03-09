@@ -1,5 +1,12 @@
 package AE2;
 
+/*
+This class create Teaching Requirements and each one holds the typical information needed.
+Note that we understand the constructor has too many parameters. This was planned. If the system
+were to actually be deployed, we would change the structure to using objects, and a Teaching Requirement
+would hold a few objects that, when combined, contained all of this data. 
+ */
+
 public class TeachingRequirement {
     private int teachingRequirementID;
     private Course course;

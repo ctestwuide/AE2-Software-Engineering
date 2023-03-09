@@ -5,6 +5,8 @@ public class CourseDirector {
 	public static void askRequest() {
 		int requestType=0;
 		
+		
+		//Menu for class/course directors to take action
 		do {
 			System.out.print("\nWould you like to...\n"
 				+ "\t1-Add Teaching Requirement (enter 1)\n"
@@ -14,6 +16,8 @@ public class CourseDirector {
 				+ "\t0-Return to main menu (enter 0)\n"
 				+ "\tEnter a number: ");
 		
+			
+			//validate input
 			if(Main.s.hasNextInt()) {
 				requestType = Main.s.nextInt();
 				
@@ -40,6 +44,7 @@ public class CourseDirector {
 
 		}while(requestType!=0);
 		
+		//If exiting and returning to main menu, all data is written to database file
 		try {
 			FileHandler.writeTeachingRequirementFile(FileHandler.filePathTR);
 			System.out.println("\nChanges saved!");
@@ -62,7 +67,7 @@ public class CourseDirector {
 				+ "\t1. Enter a unique teaching request ID (must be an integer): ");
 		
 		
-	    if (Main.s.hasNextInt()) { //must validate because this is primary key
+	    if (Main.s.hasNextInt()) { //must validate because this is primary key (in future datatbase)
 	        ID = Main.s.nextInt();
 	        Main.s.nextLine();
 	        if(TeachingRequirementDB.getTeachingRequirement(ID) instanceof TeachingRequirement) {
@@ -158,7 +163,7 @@ public class CourseDirector {
 		return ID;
 	}
 	
-	
+	//Helper methods for taking in input for different types of variables
 	public static int intInput() {
 		String sString = Main.s.nextLine();
 		if(sString.length()>0)	{

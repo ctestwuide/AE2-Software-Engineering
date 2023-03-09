@@ -1,7 +1,10 @@
 package AE2;
 
+
 import java.util.ArrayList;
 import java.util.List;
+
+//The database class to hold teachers
 
 public class PartTimeTeacherDB {
 	

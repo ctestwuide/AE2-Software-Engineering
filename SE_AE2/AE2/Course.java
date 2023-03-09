@@ -1,5 +1,9 @@
 package AE2;
 
+//Each Teaching Requirement has a course/class that is being taught
+//This class isn't REQUIRED, but was created when thinking ahead for future changes to system
+
+
 public class Course {
 	
 	private String courseName, courseCode;

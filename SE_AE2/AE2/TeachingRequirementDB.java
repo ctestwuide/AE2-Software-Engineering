@@ -3,6 +3,8 @@ package AE2;
 import java.util.ArrayList;
 import java.util.List;
 
+//The database class for holding Teaching Requirements
+
 public class TeachingRequirementDB {
 	
 	private static List<TeachingRequirement> tRDB = new ArrayList<>();

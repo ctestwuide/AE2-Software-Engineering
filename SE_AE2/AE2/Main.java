@@ -4,6 +4,10 @@ import java.util.Scanner;
 
 public class Main {
 	
+	/*
+	 A static scanner is needed. Too many scanner objects using 'System.in' causes errors.
+	 */
+	
 	public static Scanner s = new Scanner(System.in);
 
 	public static void main(String[] args) {
@@ -15,6 +19,7 @@ public class Main {
 		
 		while(userType==0) {
 			
+		//Main menu for user. If this were a real program, there would be a user validation feature
 		System.out.print("Welcome!\n"
 				+ "Enter type of user...\n"
 				+ "\tFor class director, enter \"1\"\n"

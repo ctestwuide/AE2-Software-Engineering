@@ -1,5 +1,11 @@
 package AE2;
 
+/*
+ The part time teacher class has many attributes that a university would want to know about a teacher.
+ The class extends Person, because if this system were to be expanded, it is likely that other types of
+ staff would be added. Though not essential, we are planning ahead.
+ */
+
 public class PartTimeTeacher extends Person{
 	
 	private String pttPhoneNumber;

@@ -7,6 +7,15 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 
+/*
+ This class prompts the user for the database files they plan to use, which populate the internal
+ data structures. When entered, the program checks that the files and reads them, line-by-line.
+ If there are errors, the program notifies a user of an issues on a certain line of a file; however,
+ it continues through the rest of the file. Then, it populates the teaching requirements, part time teachers,
+ and training sessions from the data. The class also writes to these files with the updated data later on 
+ in the program. 
+ */
+
 public class FileHandler {
 	
 	public static String filePathTR, filePathPTT, filePathTS;
@@ -16,14 +25,7 @@ public class FileHandler {
 		System.out.println("Starting program..."
 				+ "\nThe program needs file paths to read and write data for different parts of the program."
 				+ "\nPlease specify 3 file paths for teaching requirements, part time teacher, and training sessions.");
-		/*
-		filePathTR = "C:\\users\\chase\\desktop\\testTR.csv";
-		FileHandler.readTeachingRequirementFile(filePathTR);
-		filePathPTT = "C:\\users\\chase\\desktop\\testPTT.csv";
-		FileHandler.readPartTimeTeacherFile(filePathPTT);
-		filePathTS = "C:\\users\\chase\\desktop\\testTS.csv";
-		FileHandler.readPTTTrainingSessionFile(filePathTS);
-		*/
+
 		System.out.print("\n   1-Enter file path for Teaching Requirement data: ");
 		filePathTR = getFilePath();
 		FileHandler.readTeachingRequirementFile(filePathTR);
@@ -43,7 +45,7 @@ public class FileHandler {
 		String testPath = Main.s.nextLine();
 	    File file = new File(testPath);
 	    
-	    if (!file.exists()) {
+	    if (!file.exists()) { //Validates that a file exists!
 	    	System.out.println("Error! File doesn't exist. Try again...\n");
 	    	getFilePath();
 	    } 

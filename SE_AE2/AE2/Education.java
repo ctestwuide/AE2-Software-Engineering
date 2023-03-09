@@ -1,7 +1,12 @@
 package AE2;
 
+//Each Part Time Teacher has a an education
+//This class isn't REQUIRED, but was created when thinking ahead for future changes to system
+
+
 public class Education {
 	
+	//Typical attributes for a candidate teaching at a university
 	private boolean bachelorDegree, masterDegree, doctorate, researchExperience;
 
 	public Education(boolean bachelorDegree, boolean masterDegree, boolean doctorate, boolean researchExperience) {

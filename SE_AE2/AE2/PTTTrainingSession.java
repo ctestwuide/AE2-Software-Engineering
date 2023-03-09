@@ -1,5 +1,10 @@
 package AE2;
 
+/*
+This class holds all of the typical information for a part-time teacher training session
+Note that if the system is expanded, instead of using a String to hold a list of attendees,
+we would change it to a list, or likely, a table in the database.
+*/
 
 public class PTTTrainingSession {
 	

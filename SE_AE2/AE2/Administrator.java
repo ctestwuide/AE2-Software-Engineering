@@ -2,6 +2,9 @@ package AE2;
 
 public class Administrator {
 
+	
+	
+	//Administrator user menu
 	public static void askRequest() {
 		int requestType = 0;
 		
@@ -18,6 +21,8 @@ public class Administrator {
 				+ "\t0-Return to main menu (enter 0)\n"
 				+ "\tEnter a number: ");
 		
+			
+			//Validate that the user entered an integer
 			if(Main.s.hasNextInt()) {
 				requestType = Main.s.nextInt();
 
@@ -25,7 +30,7 @@ public class Administrator {
 				System.out.println("\nInvalid input, try again...\n");
 			}
 			
-			Main.s.nextLine();
+			Main.s.nextLine(); //Clear the scanner
 
 			
 			switch(requestType) {
@@ -59,8 +64,9 @@ public class Administrator {
 
 			}
 			
-		} while(requestType!=0);
+		} while(requestType!=0); //Default is 0, which takes user back to start menu
 		
+		//Write to database files when exiting the menu
 		try {
 			FileHandler.saveAndExport();
 			System.out.println("\nChanges saved!");
@@ -321,6 +327,10 @@ public class Administrator {
 		Administrator.askRequest();
 		
 	}
+	
+	
+	
+	//These methods handle checking for different types of user input
 	
 	public static int intInput() {
 		String sString = Main.s.nextLine();

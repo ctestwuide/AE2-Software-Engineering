@@ -3,6 +3,9 @@ package AE2;
 import java.util.ArrayList;
 import java.util.List;
 
+//The database class to hold Training Sessions!
+
+
 public class PTTTrainingSessionDB {
 	
 	private static List<PTTTrainingSession> pttTSDB = new ArrayList<>();
