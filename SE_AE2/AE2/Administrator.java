@@ -38,10 +38,10 @@ public class Administrator {
 		    	addTrainingSession();
 		        break;
 		    case 2:
-		    	assignTeacherToTrainingSession();
+		    	assignTeacherToTeachingRequirement();
 		        break;
 		    case 3:
-		    	assignTeacherToTeachingRequirement();
+		    	assignTeacherToTrainingSession();
 		        break;
 		    case 4:
 		    	deleteTrainingSession();
@@ -131,7 +131,7 @@ public class Administrator {
 	public static void assignTeacherToTrainingSession() {
 		int pttID, tsID;
 		System.out.println("\nTo assign a part time teacher to a training session,"
-				+ "a valid training session and teacher are required.\n");
+				+ " a valid training session and teacher are required.\n");
 		
 		pttID = getPTTID();
 		if(PartTimeTeacherDB.getPartTimeTeacher(pttID)==null) {
