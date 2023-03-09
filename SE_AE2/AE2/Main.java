@@ -17,10 +17,10 @@ public class Main {
 			FileHandler.askForFilePaths();
 		}
 		
-		while(userType==0) {
+		do {
 			
 		//Main menu for user. If this were a real program, there would be a user validation feature
-		System.out.print("Welcome!\n"
+		System.out.print("\nWelcome!\n"
 				+ "Enter type of user...\n"
 				+ "\tFor class director, enter \"1\"\n"
 				+ "\tFor administrator, enter \"2\"\n"
@@ -41,10 +41,10 @@ public class Main {
 			case 2:
 				Administrator.askRequest();
 				break;
-			case 0:
-				FileHandler.saveAndExport();
-				return;
 			}
-		}
+		}while(userType!=0);
+		FileHandler.saveAndExport();
+		System.out.println("\nAll data saved. Program complete!");
+		
 	}
 }

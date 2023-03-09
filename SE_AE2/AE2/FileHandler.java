@@ -23,18 +23,18 @@ public class FileHandler {
 	public static void askForFilePaths() {		
 		
 		System.out.println("Starting program..."
-				+ "\nThe program needs file paths to read and write data for different parts of the program."
-				+ "\nPlease specify 3 file paths for teaching requirements, part time teacher, and training sessions.");
+				+ "\nThe program needs .csv file paths to read and write data for different parts of the program."
+				+ "\nPlease specify 3 .csv file paths for teaching requirements, part time teacher, and training sessions.");
 
-		System.out.print("\n   1-Enter file path for Teaching Requirement data: ");
+		System.out.print("\n   1-Enter .csv file path for Teaching Requirement data: ");
 		filePathTR = getFilePath();
 		FileHandler.readTeachingRequirementFile(filePathTR);
 		
-		System.out.print("\n   2-Enter file path for Part Time Teacher data: ");
+		System.out.print("\n   2-Enter .csv file path for Part Time Teacher data: ");
 		filePathPTT = getFilePath();
 		FileHandler.readPartTimeTeacherFile(filePathPTT);
 		
-		System.out.print("\n   3-Enter file path for Training Session data: ");
+		System.out.print("\n   3-Enter .csv file path for Training Session data: ");
 		filePathTS = getFilePath();
 		FileHandler.readPTTTrainingSessionFile(filePathTS);
 		
