@@ -3,6 +3,7 @@ package AE2;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Scanner;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -19,6 +20,8 @@ import java.io.FileWriter;
 public class FileHandler {
 	
 	public static String filePathTR, filePathPTT, filePathTS;
+	
+	private static Scanner s = ScannerSingleton.getInstance().getScanner();
 	
 	public static void askForFilePaths() {		
 		
@@ -42,11 +45,11 @@ public class FileHandler {
 	
 	public static String getFilePath() {
 		
-		String testPath = Main.s.nextLine();
+		String testPath = s.nextLine();
 	    File file = new File(testPath);
 	    
 	    if (!file.exists()) { //Validates that a file exists!
-	    	System.out.println("Error! File doesn't exist. Try again...\n");
+	    	System.out.print("\nError! File doesn't exist. Enter another: ");
 	    	getFilePath();
 	    } 
         return testPath;

@@ -1,6 +1,10 @@
 package AE2;
 
+import java.util.Scanner;
+
 public class CourseDirector {
+	
+	private static Scanner s = ScannerSingleton.getInstance().getScanner();
 	
 	public static void askRequest() {
 		int requestType=0;
@@ -18,14 +22,14 @@ public class CourseDirector {
 		
 			
 			//validate input
-			if(Main.s.hasNextInt()) {
-				requestType = Main.s.nextInt();
+			if(s.hasNextInt()) {
+				requestType = s.nextInt();
 				
 			} else {
 				System.out.println("\nInvalid input, try again...\n");
 			}
 			
-			Main.s.nextLine(); // Clear scanner!
+			s.nextLine(); // Clear scanner!
 		
 			switch(requestType) {
 		    case 1:
@@ -67,9 +71,9 @@ public class CourseDirector {
 				+ "\t1. Enter a unique teaching request ID (must be an integer): ");
 		
 		
-	    if (Main.s.hasNextInt()) { //must validate because this is primary key (in future datatbase)
-	        ID = Main.s.nextInt();
-	        Main.s.nextLine();
+	    if (s.hasNextInt()) { //must validate because this is primary key (in future datatbase)
+	        ID = s.nextInt();
+	        s.nextLine();
 	        if(TeachingRequirementDB.getTeachingRequirement(ID) instanceof TeachingRequirement) {
 	        	System.out.println("\nInvalid input, ID is not unique");
 	        	askRequest();
@@ -157,15 +161,15 @@ public class CourseDirector {
 	public static int askTeachingRequestID() {
 		
 		System.out.print("\nEnter teaching request ID number: ");
-		int ID = Main.s.nextInt();
-		Main.s.nextLine();
+		int ID = s.nextInt();
+		s.nextLine();
 		
 		return ID;
 	}
 	
 	//Helper methods for taking in input for different types of variables
 	public static int intInput() {
-		String sString = Main.s.nextLine();
+		String sString = s.nextLine();
 		if(sString.length()>0)	{
 			return Integer.parseInt(sString);
 		} else {
@@ -174,7 +178,7 @@ public class CourseDirector {
 	}
 	
 	public static boolean booleanInput() {
-		String sString = Main.s.nextLine();
+		String sString = s.nextLine();
 		if(sString.equals("true"))	{
 			return true;
 		} else {
@@ -183,7 +187,7 @@ public class CourseDirector {
 	}
 	
 	public static String stringInput() {
-		String sString = Main.s.nextLine();
+		String sString = s.nextLine();
 		if(sString.length()>0)	{
 			return sString;
 		} else {

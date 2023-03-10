@@ -1,8 +1,10 @@
 package AE2;
 
+import java.util.Scanner;
+
 public class Administrator {
 
-	
+	private static Scanner s = ScannerSingleton.getInstance().getScanner();
 	
 	//Administrator user menu
 	public static void askRequest() {
@@ -23,14 +25,14 @@ public class Administrator {
 		
 			
 			//Validate that the user entered an integer
-			if(Main.s.hasNextInt()) {
-				requestType = Main.s.nextInt();
+			if(s.hasNextInt()) {
+				requestType = s.nextInt();
 
 			} else {
 				System.out.println("\nInvalid input, try again...\n");
 			}
 			
-			Main.s.nextLine(); //Clear the scanner
+			s.nextLine(); //Clear the scanner
 
 			
 			switch(requestType) {
@@ -224,12 +226,12 @@ public class Administrator {
 	public static int getTeachingRequirementID() {
 		int trID=-1;
 		System.out.print("\nEnter the TeachingRequirementID that you'd like to assign a teacher: ");
-		if(Main.s.hasNextInt()) {
-			trID = Main.s.nextInt();
-			Main.s.nextLine();
+		if(s.hasNextInt()) {
+			trID = s.nextInt();
+			s.nextLine();
 		} else {
 			System.out.println("\nInvalid input, try again...");
-			Main.s.nextLine();
+			s.nextLine();
 			getTeachingRequirementID();
 		}
 		return trID;
@@ -240,12 +242,12 @@ public class Administrator {
 		int pttID;
 		System.out.print("\nEnter the teacher ID number for assignment: ");
 		
-		if(Main.s.hasNextInt()) {
-			pttID = Main.s.nextInt();
-			Main.s.nextLine();
+		if(s.hasNextInt()) {
+			pttID = s.nextInt();
+			s.nextLine();
 		} else {
 			System.out.println("\nInvalid input, try again...");
-			Main.s.nextLine();
+			s.nextLine();
 			getPTTID();
 			pttID=-1;
 		}
@@ -257,12 +259,12 @@ public class Administrator {
 	public static int getPTTTrainingSessionID() {
 		int tsID;
 		System.out.print("\nEnter a training session ID: ");
-		if(Main.s.hasNextInt()) {
-			tsID = Main.s.nextInt();
-			Main.s.nextLine();
+		if(s.hasNextInt()) {
+			tsID = s.nextInt();
+			s.nextLine();
 		} else {
 			System.out.println("\nInvalid input, try again...");
-			Main.s.nextLine();
+			s.nextLine();
 			getPTTTrainingSessionID();
 			tsID=0;
 		}
@@ -333,7 +335,7 @@ public class Administrator {
 	//These methods handle checking for different types of user input
 	
 	public static int intInput() {
-		String sString = Main.s.nextLine();
+		String sString = s.nextLine();
 		if(sString.length()>0)	{
 			return Integer.parseInt(sString);
 		} else {
@@ -342,7 +344,7 @@ public class Administrator {
 	}
 	
 	public static boolean booleanInput() {
-		String sString = Main.s.nextLine();
+		String sString = s.nextLine();
 		if(sString.equals("true"))	{
 			return true;
 		} else {
@@ -351,7 +353,7 @@ public class Administrator {
 	}
 	
 	public static String stringInput() {
-		String sString = Main.s.nextLine();
+		String sString = s.nextLine();
 		if(sString.length()>0)	{
 			return sString;
 		} else {

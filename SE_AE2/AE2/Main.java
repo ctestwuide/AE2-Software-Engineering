@@ -4,11 +4,7 @@ import java.util.Scanner;
 
 public class Main {
 	
-	/*
-	 A static scanner is needed. Too many scanner objects using 'System.in' causes errors.
-	 */
-	
-	public static Scanner s = new Scanner(System.in);
+	private static Scanner s = ScannerSingleton.getInstance().getScanner();
 
 	public static void main(String[] args) {
 		int userType=0;

@@ -12,3 +12,5 @@
 /Person.class
 /TeachingRequirement.class
 /TeachingRequirementDB.class
+/ScannerSingleton.class
+/TeachingRequirementBuilder.class
