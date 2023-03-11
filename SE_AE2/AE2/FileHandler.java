@@ -25,34 +25,37 @@ public class FileHandler {
 	
 	public static void askForFilePaths() {		
 		
+		String blank = "";
+		
 		System.out.println("Starting program..."
-				+ "\nThe program needs .csv file paths to read and write data for different parts of the program."
-				+ "\nPlease specify 3 .csv file paths for teaching requirements, part time teacher, and training sessions.");
+				+ "\nThe program needs CSV file paths to read and write data for different parts of the program."
+				+ "\nPlease specify 3 CSV file paths for teaching requirements, part time teacher, and training sessions.");
 
-		System.out.print("\n   1-Enter .csv file path for Teaching Requirement data: ");
-		filePathTR = getFilePath();
+		
+		AskGetValidate.askForInput("\n(1 of 3)-Enter CSV file path for Teaching Requirement data");
+		filePathTR = getFilePath(blank);
 		FileHandler.readTeachingRequirementFile(filePathTR);
 		
-		System.out.print("\n   2-Enter .csv file path for Part Time Teacher data: ");
-		filePathPTT = getFilePath();
+		AskGetValidate.askForInput("\n(2 of 3)-Enter CSV file path for Part-Time Teacher data");
+		filePathPTT = getFilePath(blank);
 		FileHandler.readPartTimeTeacherFile(filePathPTT);
 		
-		System.out.print("\n   3-Enter .csv file path for Training Session data: ");
-		filePathTS = getFilePath();
+		AskGetValidate.askForInput("\n(3 of 3)-Enter CSV file path for Training Session data");
+		filePathTS = getFilePath(blank);
 		FileHandler.readPTTTrainingSessionFile(filePathTS);
 		
 	}
 	
-	public static String getFilePath() {
+	public static String getFilePath(String filePath) {
 		
-		String testPath = s.nextLine();
+		String testPath = AskGetValidate.getStringInput();
 	    File file = new File(testPath);
 	    
 	    if (!file.exists()) { //Validates that a file exists!
 	    	System.out.print("\nError! File doesn't exist. Enter another: ");
-	    	getFilePath();
+	    	getFilePath(filePath);
 	    } 
-        return testPath;
+	    return testPath;
 	}
 	
 	public static void saveAndExport() {
@@ -97,7 +100,7 @@ public class FileHandler {
                 }
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            
         } finally {
         	System.out.println("\t\t\tIMPORT COMPLETE!");
         }
@@ -154,7 +157,7 @@ public class FileHandler {
                 }
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            
         } finally {
         	System.out.println("\t\t\tIMPORT COMPLETE!");
         }
@@ -211,7 +214,7 @@ public class FileHandler {
 
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            
         } finally {
         	System.out.println("\t\t\tIMPORT COMPLETE!");
         }

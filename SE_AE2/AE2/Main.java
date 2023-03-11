@@ -4,7 +4,6 @@ import java.util.Scanner;
 
 public class Main {
 	
-	private static Scanner s = ScannerSingleton.getInstance().getScanner();
 
 	public static void main(String[] args) {
 		int userType=0;
@@ -24,11 +23,8 @@ public class Main {
 				+ "\tEnter type of user: ");
 		
 		
-		if(s.hasNextInt()) {
-		userType = s.nextInt();
-		s.nextLine();
-		} 
-
+		userType = AskGetValidate.getIntInput();
+		
 		
 		switch(userType) {
 			case 1:
@@ -37,9 +33,14 @@ public class Main {
 			case 2:
 				Administrator.askRequest();
 				break;
+			case 0:
+				break;
+			default:
+				System.out.println("\n\nInvalid Input!");
+				break;
 			}
 		}while(userType!=0);
-		FileHandler.saveAndExport();
+		//FileHandler.saveAndExport();
 		System.out.println("\nAll data saved. Program complete!");
 		
 	}

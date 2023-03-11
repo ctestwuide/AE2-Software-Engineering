@@ -1,10 +1,7 @@
 package AE2;
 
-import java.util.Scanner;
 
 public class CourseDirector {
-	
-	private static Scanner s = ScannerSingleton.getInstance().getScanner();
 	
 	public static void askRequest() {
 		int requestType=0;
@@ -21,15 +18,7 @@ public class CourseDirector {
 				+ "\tEnter a number: ");
 		
 			
-			//validate input
-			if(s.hasNextInt()) {
-				requestType = s.nextInt();
-				
-			} else {
-				System.out.println("\nInvalid input, try again...\n");
-			}
-			
-			s.nextLine(); // Clear scanner!
+			requestType = AskGetValidate.getIntInput();
 		
 			switch(requestType) {
 		    case 1:
@@ -44,6 +33,10 @@ public class CourseDirector {
 		    case 4:
 		        deleteTeachingRequirement();
 		        break;
+		    case 0:
+		    	break;
+		    default:
+		    	System.out.println("\nInvalid Input!");
 			}
 
 		}while(requestType!=0);
@@ -67,49 +60,47 @@ public class CourseDirector {
 		boolean BS, MS, PhD, RE;
 		
 		
-		System.out.print("\nTo add a new teaching request, answer the following 10 questions!\n\n"
-				+ "\t1. Enter a unique teaching request ID (must be an integer): ");
+		System.out.println("\nTo add a new teaching request, answer the following 10 questions!\n");
 		
 		
-	    if (s.hasNextInt()) { //must validate because this is primary key (in future datatbase)
-	        ID = s.nextInt();
-	        s.nextLine();
-	        if(TeachingRequirementDB.getTeachingRequirement(ID) instanceof TeachingRequirement) {
-	        	System.out.println("\nInvalid input, ID is not unique");
-	        	askRequest();
-	        }
-	    } else {
-        System.out.println("\nInvalid input. ID number must be an integer.");
-        askRequest();
+		AskGetValidate.askForInput("1. Enter a unique teaching request ID (must be an integer)");
+		ID = AskGetValidate.getIntInput();
+
+	    if(TeachingRequirementDB.getTeachingRequirement(ID) instanceof TeachingRequirement) {
+        	System.out.println("\nInvalid input, ID is not unique");
+        	askRequest();
+	    } else if(ID<0) {
+        	System.out.println("\nInvalid input, ID can't be negative");
+        	askRequest();
 	    }
+	    
+		AskGetValidate.askForInput("2. Enter course code (Example: \"COMPSCI 5059\")");
+		cCode = AskGetValidate.getStringInput();
 		
-		System.out.print("\t2. Enter course code (Example: \"COMPSCI 5059\"): ");
-		cCode = stringInput();
+		AskGetValidate.askForInput("3. Enter course name (Example: \"Software Engineering\")");
+		cName = AskGetValidate.getStringInput();
 		
-		System.out.print("\t3. Enter course name (Example: \"Software Engineering\"): ");
-		cName = stringInput();
-		
-		System.out.print("\t4. Enter salary as a plain integer (Example: \"40000\"): ");
-		salary = intInput();
+		AskGetValidate.askForInput("4. Enter salary as a plain integer (Example: \"40000\")");
+		salary = AskGetValidate.validateIntInput(AskGetValidate.getIntInput());
+				 
+		AskGetValidate.askForInput("5. Bachelor's Degree required (enter true or false)");
+		BS = AskGetValidate.validateBooleanInput(AskGetValidate.getStringInput());
 				
+		AskGetValidate.askForInput("6. Master's Degree required (enter true or false)");
+		MS = AskGetValidate.validateBooleanInput(AskGetValidate.getStringInput());
 		
-		System.out.print("\t5. Bachelor's Degree required (enter true or false): ");
-		BS = booleanInput();
+		AskGetValidate.askForInput("7. Doctorate required (enter true or false)");
+		PhD = AskGetValidate.validateBooleanInput(AskGetValidate.getStringInput());
 		
-		System.out.print("\t6. Master's Degree required (enter true or false): ");
-		MS = booleanInput();
+		AskGetValidate.askForInput("8. Research experience required (enter true or false)");
+		RE = AskGetValidate.validateBooleanInput(AskGetValidate.getStringInput());
+
+		AskGetValidate.askForInput("9. How many hours per week will this position entail (enter integer)");
+		hours = AskGetValidate.validateIntInput(AskGetValidate.getIntInput());
 		
-		System.out.print("\t7. Doctorate required (enter true or false): ");
-		PhD = booleanInput();
+		AskGetValidate.askForInput("10. Enter any additional information about the position");
+		info = AskGetValidate.getStringInput();
 		
-		System.out.print("\t8. Research experience required (enter true or false): ");
-		RE = booleanInput();
-		
-		System.out.print("\t9. How many hours per week will this position entail (enter integer): ");
-		hours = intInput();
-		
-		System.out.print("\t10. Enter any additional information about the position: ");
-		info = stringInput();
 		
 		TeachingRequirement TR = new TeachingRequirement(ID,new Course(cCode,cName),salary,new Education(BS,MS,PhD,RE),hours,info);
 		TeachingRequirementDB.addTeachingRequirement(TR);
@@ -160,40 +151,10 @@ public class CourseDirector {
 	
 	public static int askTeachingRequestID() {
 		
-		System.out.print("\nEnter teaching request ID number: ");
-		int ID = s.nextInt();
-		s.nextLine();
+		AskGetValidate.askForInput("Enter teaching request ID number:");
+		int ID = AskGetValidate.getIntInput();
 		
 		return ID;
 	}
-	
-	//Helper methods for taking in input for different types of variables
-	public static int intInput() {
-		String sString = s.nextLine();
-		if(sString.length()>0)	{
-			return Integer.parseInt(sString);
-		} else {
-			return 0;
-		}
-	}
-	
-	public static boolean booleanInput() {
-		String sString = s.nextLine();
-		if(sString.equals("true"))	{
-			return true;
-		} else {
-			return false;
-		}
-	}
-	
-	public static String stringInput() {
-		String sString = s.nextLine();
-		if(sString.length()>0)	{
-			return sString;
-		} else {
-			return "0";
-		}
-	}
-	
 
 }

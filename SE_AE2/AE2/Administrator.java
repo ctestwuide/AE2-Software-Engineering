@@ -15,24 +15,17 @@ public class Administrator {
 				+ "\t1-Add a training session (enter 1)\n"
 				+ "\t2-Assign a teacher to a teaching requirement (enter 2)\n"
 				+ "\t3-Assign a teacher to a training sessions (enter 3)\n"
-				+ "\t4-Delete a training session (enter 4)\n"
-				+ "\t5-View unfilled teaching requirements (enter 5)\n"
-				+ "\t6-View all teaching requirements (enter 6)\n"
-				+ "\t7-View all part time teachers (enter 7)\n"
-				+ "\t8-View training sessions (enter 8)\n"
+				+ "\t4-Create a teacher (enter 4)\n"
+				+ "\t5-Delete a training session (enter 5)\n"
+				+ "\t6-View unfilled teaching requirements (enter 6)\n"
+				+ "\t7-View all teaching requirements (enter 7)\n"
+				+ "\t8-View all part time teachers (enter 8)\n"
+				+ "\t9-View training sessions (enter 9)\n"
 				+ "\t0-Return to main menu (enter 0)\n"
 				+ "\tEnter a number: ");
 		
 			
-			//Validate that the user entered an integer
-			if(s.hasNextInt()) {
-				requestType = s.nextInt();
-
-			} else {
-				System.out.println("\nInvalid input, try again...\n");
-			}
-			
-			s.nextLine(); //Clear the scanner
+			requestType = AskGetValidate.getIntInput();
 
 			
 			switch(requestType) {
@@ -46,24 +39,28 @@ public class Administrator {
 		    	assignTeacherToTrainingSession();
 		        break;
 		    case 4:
-		    	deleteTrainingSession();
+		    	createPTT();
 		    	break;
 		    case 5:
-		    	viewTeachingRequirements(1);
+		    	deleteTrainingSession();
 		    	break;
 		    case 6:
-		    	viewTeachingRequirements(0);
+		    	viewTeachingRequirements(1);
 		        break;
 		    case 7:
-		    	viewPartTimeTeachers();
+		    	viewTeachingRequirements(0);
 		        break;
 		    case 8:
-		    	viewTrainingSession();
+		    	viewPartTimeTeachers();
 		        break;
-		    default:
-		    	requestType=0;
+		    case 9:
+		    	viewTrainingSession();
 		    	break;
-
+		    case 0:
+		    	break;
+		    default:
+		    	System.out.println("\nInvalid Input!\n");
+		    	break;
 			}
 			
 		} while(requestType!=0); //Default is 0, which takes user back to start menu
@@ -71,7 +68,7 @@ public class Administrator {
 		//Write to database files when exiting the menu
 		try {
 			FileHandler.saveAndExport();
-			System.out.println("\nChanges saved!");
+			System.out.print("\nChanges saved!");
 		}finally {
 			System.out.println();
 			Main.main(null); //exit and return to program start!
@@ -87,20 +84,25 @@ public class Administrator {
 		
 		System.out.println("\nTo create a training session, answer the following:\n");
 		
-		System.out.print("\t1. Enter a unique training session ID number: ");
-		tsID = intInput();
+		AskGetValidate.askForInput("1. Enter a unique training session ID number (must be integer)");
+		tsID = AskGetValidate.validateIntInput(AskGetValidate.getIntInput());
 		
-		System.out.print("\t2. Enter a date for the training session (format: DD/MM/YYYY): ");
-		trainDate = stringInput();
+		if(PTTTrainingSessionDB.getPTTTrainingSession(tsID) instanceof PTTTrainingSession) {
+			System.out.println("Not a unique ID number!");
+			askRequest();
+		}
 		
-		System.out.print("\t3. Enter a time for the training session (format: HH:MM): ");
-		trainTime = stringInput();
+		AskGetValidate.askForInput("2. Enter a date for the training session (format: DD/MM/YYYY)");
+		trainDate = AskGetValidate.getStringInput();
 		
-		System.out.print("\t4. Enter a location for the training session: ");
-		trainLocation = stringInput();
+		AskGetValidate.askForInput("3. Enter a time for the training session (format: HH:MM)");
+		trainTime = AskGetValidate.getStringInput();
 		
-		System.out.print("\t5. Enter the ID numbers of any trainees (if known) separated by a \"-\" (format: XXXX-XXXX-XX...): ");
-		attendeeIDs = stringInput();
+		AskGetValidate.askForInput("4. Enter a location for the training session");
+		trainLocation = AskGetValidate.getStringInput();
+		
+		AskGetValidate.askForInput("5. Enter the ID numbers of any trainees (if known) separated by a \"_\" (format: XXX_XXX_...)");
+		attendeeIDs = AskGetValidate.getStringInput();
 		
 		PTTTrainingSession pttTS = new PTTTrainingSession(tsID, trainDate, trainTime, trainLocation, attendeeIDs);
 		
@@ -123,7 +125,6 @@ public class Administrator {
 			System.out.print("\nA teaching requirement with that ID does not exist.\n");
 			Administrator.askRequest();
 		}
-		
 		
 		pttID = getPTTID();
 		checkPTTID(pttID,TR);
@@ -151,6 +152,107 @@ public class Administrator {
 		System.out.println("Part time teacher was successfully assigned!");
 		askRequest();
 
+	}
+	
+	public static void createPTT(int pttID, TeachingRequirement TR) {
+		String fName, lName, birthday, phone, dateHired;
+		boolean bachelor, master, doctorate, research;
+		System.out.println("\nNo teacher with this ID number exists. Creating a new teacher...\n");
+		
+		
+		AskGetValidate.askForInput("1. Enter teacher's firt name");
+		fName = AskGetValidate.getStringInput();
+		
+		AskGetValidate.askForInput("2. Enter teacher's last name");
+		lName = AskGetValidate.getStringInput();
+		
+		AskGetValidate.askForInput("3. Enter teacher's date of birth (format: DD/MM/YYYY)");
+		birthday = AskGetValidate.getStringInput();
+		
+		AskGetValidate.askForInput("4. Enter teacher's phone number");
+		phone = AskGetValidate.getStringInput();
+		
+		AskGetValidate.askForInput("5. Teacher holds a bachelor's degree (true or false)");
+		bachelor = AskGetValidate.validateBooleanInput(AskGetValidate.getStringInput());
+		
+		AskGetValidate.askForInput("6. Teacher holds a master's degree (true or false)");
+		master = AskGetValidate.validateBooleanInput(AskGetValidate.getStringInput());
+
+		AskGetValidate.askForInput("7. Teacher holds a doctorate degree (true or false)");
+		doctorate = AskGetValidate.validateBooleanInput(AskGetValidate.getStringInput());
+
+		AskGetValidate.askForInput("8. Teacher has research experience (true or false)");
+		research = AskGetValidate.validateBooleanInput(AskGetValidate.getStringInput());
+
+		AskGetValidate.askForInput("9. Enter teacher's date of hire (format: DD/MM/YYYY)");
+		dateHired = AskGetValidate.getStringInput();
+		
+		
+		PartTimeTeacher PTT = new PartTimeTeacher(pttID, fName, lName, birthday, phone, 
+				new Education(bachelor, master, doctorate, research), dateHired);
+		PartTimeTeacherDB.addPartTimeTeacher(PTT);
+		TR.setTeacherID(pttID);
+		
+		System.out.println("\nPart time teacher was succesfully created and assigned to teaching requirement!");
+		
+		Administrator.askRequest();
+		
+	}
+	
+	public static void createPTT() {
+		String fName, lName, birthday, phone, dateHired;
+		boolean bachelor, master, doctorate, research;
+		int pttID;
+		
+		System.out.println("\nTo create a part-time teacher, enter the following details...\n");
+		
+		AskGetValidate.askForInput("1. Enter a unique, integer ID number for the part-time teacher");
+		pttID = AskGetValidate.validateIntInput(AskGetValidate.getIntInput());
+		
+	    if(PartTimeTeacherDB.getPartTimeTeacher(pttID) instanceof PartTimeTeacher) {
+        	System.out.println("\n\nInvalid input, ID is not unique");
+        	askRequest();
+	    } else if(pttID<0) {
+        	System.out.println("\n\nInvalid input, ID can't be negative");
+        	askRequest();
+	    }
+		
+		AskGetValidate.askForInput("2. Enter teacher's firt name");
+		fName = AskGetValidate.getStringInput();
+		
+		AskGetValidate.askForInput("3. Enter teacher's last name");
+		lName = AskGetValidate.getStringInput();
+		
+		AskGetValidate.askForInput("4. Enter teacher's date of birth (format: DD/MM/YYYY)");
+		birthday = AskGetValidate.getStringInput();
+		
+		AskGetValidate.askForInput("5. Enter teacher's phone number");
+		phone = AskGetValidate.getStringInput();
+		
+		AskGetValidate.askForInput("6. Teacher holds a bachelor's degree (true or false)");
+		bachelor = AskGetValidate.validateBooleanInput(AskGetValidate.getStringInput());
+		
+		AskGetValidate.askForInput("7. Teacher holds a master's degree (true or false)");
+		master = AskGetValidate.validateBooleanInput(AskGetValidate.getStringInput());
+
+		AskGetValidate.askForInput("8. Teacher holds a doctorate degree (true or false)");
+		doctorate = AskGetValidate.validateBooleanInput(AskGetValidate.getStringInput());
+
+		AskGetValidate.askForInput("9. Teacher has research experience (true or false)");
+		research = AskGetValidate.validateBooleanInput(AskGetValidate.getStringInput());
+
+		AskGetValidate.askForInput("10. Enter teacher's date of hire (format: DD/MM/YYYY)");
+		dateHired = AskGetValidate.getStringInput();
+		
+		
+		PartTimeTeacher PTT = new PartTimeTeacher(pttID, fName, lName, birthday, phone, 
+				new Education(bachelor, master, doctorate, research), dateHired);
+		PartTimeTeacherDB.addPartTimeTeacher(PTT);
+		
+		System.out.println("\nPart-time teacher was succesfully created!");
+		
+		Administrator.askRequest();
+		
 	}
 	
 	public static void deleteTrainingSession() {
@@ -283,81 +385,6 @@ public class Administrator {
 			Administrator.askRequest();
 		} else {
 			createPTT(pttID, TR);
-		}
-	}
-	
-	public static void createPTT(int pttID, TeachingRequirement TR) {
-		String fName, lName, birthday, phone, dateHired;
-		boolean bachelor, master, doctorate, research;
-		System.out.println("\nNo teacher with this ID number exists. Creating a new teacher...\n");
-		
-		System.out.print("\t1. Enter teacher's firt name: ");
-		fName = stringInput();
-		
-		System.out.print("\t2. Enter teacher's last name: ");
-		lName = stringInput();
-		
-		System.out.print("\t3. Enter teacher's date of birth (format: DD/MM/YYYY): ");
-		birthday = stringInput();
-		
-		System.out.print("\t4. Enter teacher's phone number: ");
-		phone = stringInput();
-		
-		System.out.print("\t5. Teacher holds a bachelor's degree (true or false): ");
-		bachelor = booleanInput();
-		
-		System.out.print("\t6. Teacher holds a master's degree (true or false): ");
-		master = booleanInput();
-		
-		System.out.print("\t7. Teacher holds a doctorate degree (true or false): ");
-		doctorate = booleanInput();
-		
-		System.out.print("\t8. Teacher has research experience (true or false): ");
-		research = booleanInput();
-		
-		System.out.print("\t9. Enter teacher's date of hire (format: DD/MM/YYYY): ");
-		dateHired = stringInput();
-		
-		
-		PartTimeTeacher PTT = new PartTimeTeacher(pttID, fName, lName, birthday, phone, 
-				new Education(bachelor, master, doctorate, research), dateHired);
-		PartTimeTeacherDB.addPartTimeTeacher(PTT);
-		TR.setTeacherID(pttID);
-		
-		System.out.println("\nPart time teacher was succesfully created and assigned to teaching requirement!");
-		
-		Administrator.askRequest();
-		
-	}
-	
-	
-	
-	//These methods handle checking for different types of user input
-	
-	public static int intInput() {
-		String sString = s.nextLine();
-		if(sString.length()>0)	{
-			return Integer.parseInt(sString);
-		} else {
-			return 0;
-		}
-	}
-	
-	public static boolean booleanInput() {
-		String sString = s.nextLine();
-		if(sString.equals("true"))	{
-			return true;
-		} else {
-			return false;
-		}
-	}
-	
-	public static String stringInput() {
-		String sString = s.nextLine();
-		if(sString.length()>0)	{
-			return sString;
-		} else {
-			return "0";
 		}
 	}
 	
