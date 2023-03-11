@@ -63,7 +63,7 @@ public class Administrator {
 		    	break;
 			}
 			
-		} while(requestType!=0); //Default is 0, which takes user back to start menu
+		} while(requestType!=0);
 		
 		//Write to database files when exiting the menu
 		try {
@@ -77,7 +77,7 @@ public class Administrator {
 	}
 	
 	
-	
+	//User can add training session by answering a list of questions
 	public static void addTrainingSession() {
 		int tsID;
 		String trainDate, trainTime, trainLocation, attendeeIDs;
@@ -121,6 +121,8 @@ public class Administrator {
 		trID = getTeachingRequirementID();
 		TR = TeachingRequirementDB.getTeachingRequirement(trID);
 		
+		//If a user tries to assign a teacher to a non-existent teaching requirement, they are given an error
+		//and taken back to menu
 		if(TR==null) {
 			System.out.print("\nA teaching requirement with that ID does not exist.\n");
 			Administrator.askRequest();
@@ -137,6 +139,9 @@ public class Administrator {
 				+ " a valid training session and teacher are required.\n");
 		
 		pttID = getPTTID();
+		
+		//If a user tries to assign a teacher to a non-existent training session, they are given an error
+		//and taken back to menu
 		if(PartTimeTeacherDB.getPartTimeTeacher(pttID)==null) {
 			System.out.print("\nA part time teacher with that ID does not exist.\n");
 			askRequest();
@@ -154,6 +159,7 @@ public class Administrator {
 
 	}
 	
+	//User can create a part-time teacher and automatically assign it to a teaching requirement
 	public static void createPTT(int pttID, TeachingRequirement TR) {
 		String fName, lName, birthday, phone, dateHired;
 		boolean bachelor, master, doctorate, research;
@@ -199,6 +205,7 @@ public class Administrator {
 		
 	}
 	
+	//User can also create a part-time teacher without assigning them to a teaching requirement
 	public static void createPTT() {
 		String fName, lName, birthday, phone, dateHired;
 		boolean bachelor, master, doctorate, research;
@@ -255,6 +262,7 @@ public class Administrator {
 		
 	}
 	
+	//users can delete training sessions
 	public static void deleteTrainingSession() {
 		int tsID;
 		
@@ -274,6 +282,7 @@ public class Administrator {
 		
 	}
 	
+	//User can view a list of all or just unfilled teaching requirements
 	public static void viewTeachingRequirements(int unfilledOnly) {
 		String header = String.format("\n----------------------------------------------------------------------------------------------------------------------------\n"
 				+ "%-7s|%-14s|%-20s|%-8s|%-9s|%-7s|%-8s|%-6s|%-5s|%-11s|%-5s|%-8s",
@@ -292,7 +301,7 @@ public class Administrator {
 
 	}
 	
-	
+	//Users can view a list of part-time teachers
 	public static void viewPartTimeTeachers() {
 		String header = String.format("\n--------------------------------------------------------------------------------------------------------------\n"
 				+ "%-7s|%-10s|%-20s|%-10s|%-13s|%-8s|%-6s|%-5s|%-11s|%-8s",
@@ -307,7 +316,7 @@ public class Administrator {
 		Administrator.askRequest();
 	}
 	
-	
+	//Users can view a list of training sessions
 	public static void viewTrainingSession() {
 		String header = String.format("\n-----------------------------------------------------------------------\n"
 				+ "%-19s|%-10s|%-5s|%-20s|%-30s",

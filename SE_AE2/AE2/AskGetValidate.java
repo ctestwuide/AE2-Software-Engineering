@@ -6,6 +6,7 @@ public class AskGetValidate {
 
 	private static Scanner s = ScannerSingleton.getInstance().getScanner();
 	
+	//A standard format for asking for user input
 	public static void askForInput(String s) {
 		System.out.print("\t" + s + ": ");
 	}

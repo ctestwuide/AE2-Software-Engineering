@@ -17,7 +17,7 @@ public class CourseDirector {
 				+ "\t0-Return to main menu (enter 0)\n"
 				+ "\tEnter a number: ");
 		
-			
+			//Accepts integer input. Tested to handle non-int input.
 			requestType = AskGetValidate.getIntInput();
 		
 			switch(requestType) {
@@ -51,7 +51,7 @@ public class CourseDirector {
 		}
 
 	}
-	
+	//Users can add teaching requirements by answering a list of questions
 	public static void addTeachingRequirement() {
 		int ID = 0;
 		int salary =0;
@@ -60,7 +60,7 @@ public class CourseDirector {
 		boolean BS, MS, PhD, RE;
 		
 		
-		System.out.println("\nTo add a new teaching request, answer the following 10 questions!\n");
+		System.out.println("\nTo add a new teaching requirement, answer the following 10 questions!\n");
 		
 		
 		AskGetValidate.askForInput("1. Enter a unique teaching request ID (must be an integer)");
@@ -74,6 +74,10 @@ public class CourseDirector {
         	askRequest();
 	    }
 	    
+	    
+	    //For each type of intput, the system can handle the wrong type of input being entered
+	    //Aside from the primary key, any other data value may be left blank
+	    //Users may enter "T", "t", "True", or "true" for boolean inputs.
 		AskGetValidate.askForInput("2. Enter course code (Example: \"COMPSCI 5059\")");
 		cCode = AskGetValidate.getStringInput();
 		

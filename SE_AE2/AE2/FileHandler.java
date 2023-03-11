@@ -64,7 +64,7 @@ public class FileHandler {
 		FileHandler.writePTTTrainingSessionFile(filePathTS);
 	}
 	
-	
+	//Reads the teaching requirement import file and populates the data in the Teaching RequirementDB
 	public static void readTeachingRequirementFile(String fileName) {
         String line = "";
         String delimiter = ",";
@@ -106,6 +106,7 @@ public class FileHandler {
         }
 	}
 	
+	//Writes all teaching requirements to export file from TeachingRequirementDB class
 	public static void writeTeachingRequirementFile(String fileName) {
         
         // add data to the ArrayList
@@ -123,6 +124,7 @@ public class FileHandler {
         }
     }
 
+	//Reads the part-time teacher import file and populates the data in the PartTimeTeacherDB class
 	public static void readPartTimeTeacherFile(String fileName) {
         String line = "";
         String delimiter = ",";
@@ -163,6 +165,7 @@ public class FileHandler {
         }
 	}
 	
+	//Writes all part-time teacher data to export file from PartTimeTeacherDB class
 	public static void writePartTimeTeacherFile(String fileName) {
         
         // add data to the ArrayList
@@ -178,7 +181,7 @@ public class FileHandler {
         }
     }
 
-	
+	//Reads the training sesssion data import file and populates the data in the PTTTrainingSessionDB class
 	public static void readPTTTrainingSessionFile(String fileName) {
         String line = "";
         String delimiter = ",";
@@ -220,6 +223,7 @@ public class FileHandler {
         }
 	}
 	
+	//Writes all training session data to export file from PTTTrainingSessionDB class
 	public static void writePTTTrainingSessionFile(String fileName) {
         
         // add data to the ArrayList
