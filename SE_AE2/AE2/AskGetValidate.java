@@ -21,14 +21,18 @@ public class AskGetValidate {
 		if(s.length()>0) return true;
 		return false;
 	}
-	
+
 	public static int getIntInput() {
-		int myInt = -1;
-		if(s.hasNextInt()) {
-			myInt = s.nextInt();
-		}
-		s.nextLine();
-		return myInt;
+	    int myInt = 0; // Set to 0 by default
+	    String input = s.nextLine();
+	    if (!input.isEmpty()) {
+	        try {
+	            myInt = Integer.parseInt(input);
+	        } catch (NumberFormatException e) {
+	            System.out.println("Invalid Input! Will default to 0");
+	        }
+	    }
+	    return myInt;
 	}
 	
 	public static int validateIntInput(int i) {

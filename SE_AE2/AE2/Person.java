@@ -3,7 +3,7 @@ package AE2;
 //A template class that different types of staff will extend.
 //Future version could include any type of staff that works for a university.
 
-public class Person {
+abstract class Person {
 	
 	protected String firstName, lastName, dateOfBirth;
 
